@@ -1,18 +1,19 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy,:showmethod]
+  before_action :set_user, only: [ :edit, :update, :destroy]
   before_action :require_login , except: [:regist,:create]
   include SessionsHelper
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+    @user=current_user
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @user=current_user
   end
-
   # GET /users/new
   def new
     @user = User.new
@@ -20,6 +21,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @users=current_user
   end
 
   # POST /users
@@ -86,12 +88,23 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    @ture=0
+    if(@user.id==current_user.id)
+       redirect_to users_url(current_user), notice: 'you can not del yourself'
+        @ture=1
+      end
+      if(@user.permission<current_user.permission)
+        redirect_to users_url(current_user), notice: 'you can not del perAdmin'
+          @ture=1
+      end
+    if(@ture==0)
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
+    end
+    end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
