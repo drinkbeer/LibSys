@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
 
-
-
   resources :books
+  
   get 'users/regist'
 
   resources :sessions
@@ -11,12 +10,11 @@ Rails.application.routes.draw do
 
 
   resources :books
-    get    'login'   => 'sessions#new'
-    post   'login'   => 'sessions#create'
-    get 'logout'  => 'sessions#destroy'
-    get    'password_change' => 'sessions#password'
-    post    'password_change' => 'sessions#password_change'
-
+    get   'login'   => 'sessions#new'
+    post  'login'   => 'sessions#create'
+    get   'logout'  => 'sessions#destroy'
+    get   'password_change' => 'sessions#password'
+    post  'password_change' => 'sessions#password_change'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -25,6 +23,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'sessions#new'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
