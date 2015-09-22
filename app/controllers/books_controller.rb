@@ -17,7 +17,7 @@ class BooksController < ApplicationController
   def new
     @curr_user = current_user()
     if (@curr_user.permission == 2)
-      redirect_to users_url, notice: "Sorry, you don't have permission"
+      redirect_to books_url, notice: "Sorry, you don't have permission"
     else
       puts "permission is 2"
     end
@@ -69,7 +69,6 @@ class BooksController < ApplicationController
   end
 
   def search
-
 
   end
 
