@@ -5,7 +5,11 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+      @books = Book.all
+      if params[:search]
+        @books = Book.search(params[:search])
+      else
+      end
   end
 
   # GET /books/1
@@ -68,9 +72,6 @@ class BooksController < ApplicationController
     end
   end
 
-  def search
-
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
