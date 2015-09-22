@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [ :edit, :update, :destroy]
   before_action :require_login , except: [:regist,:create]
+
   include SessionsHelper
   # GET /users
   # GET /users.json
