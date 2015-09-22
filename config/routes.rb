@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
 
 
+  resources :books
   get 'users/regist'
 
   resources :sessions
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
   Rails.application.routes.draw do
 
 
+  resources :books
     get    'login'   => 'sessions#new'
     post   'login'   => 'sessions#create'
     get 'logout'  => 'sessions#destroy'
