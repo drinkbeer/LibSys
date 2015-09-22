@@ -1,31 +1,16 @@
 class HistoriesController < ApplicationController
-  before_action :require_login
+
   include SessionsHelper
   before_action :set_history, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
 
   # GET /histories
   # GET /histories.json
   def index
-    
-    if current_user.permission != 2
-      puts current_id
-      # @histories = History.find_by bookid: 3
-      @histories = History.searchid 3
-      if @histories
-
-        puts "history is nil"
-      elsif
-        puts "history is not nil"
-      end
+    if current_user.permission == 2
+      @histories = History.searchid(current_id)
     else
-      @histories = History.all
-
-      if @histories
-
-        puts "history is nil"
-      elsif
-      puts "history is not nil"
-      end
+    @histories = History.all
     end
   end
 
