@@ -25,32 +25,18 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    puts @current_user
-
-
-    if (@current_user.permission != 2)
-      @ture = 1
-      @book = Book.new(book_params)
-      @books = Book.all
-      @books.each do |x|
-        if (x.isbn == @book.isbn)
-          redirect_to new_book_url, notice: 'We already have this book'
-          @ture = 0
-          break
-        end
-      end
-      if (@ture == 1)
-        respond_to do |format|
-          if @book.save
-            format.html { redirect_to @book, notice: 'Book was successfully created.' }
-            format.json { render :show, status: :created, location: @book }
-          else
-            format.html { render :new }
-            format.json { render json: @book.errors, status: :unprocessable_entity }
-          end
-        end
+    #if (@current_user.permission != 2)
+    @book = Book.new(book_params)
+    respond_to do |format|
+      if @book.save
+        format.html { redirect_to @book, notice: 'Book was successfully created.' }
+        format.json { render :show, status: :created, location: @book }
+      else
+        format.html { render :new }
+        format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
+    #end
   end
 
   # PATCH/PUT /books/1
@@ -76,6 +62,8 @@ class BooksController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
