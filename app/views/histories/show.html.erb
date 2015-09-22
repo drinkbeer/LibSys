@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Userid:</strong>
+  <%= @history.userid %>
+</p>
+
+<p>
+  <strong>Bookid:</strong>
+  <%= @history.bookid %>
+</p>
+
+<p>
+  <strong>Checkouttime:</strong>
+  <%= @history.checkouttime %>
+</p>
+
+<p>
+  <strong>Returntime:</strong>
+  <%= @history.returntime %>
+</p>
+
+<%= link_to 'Edit', edit_history_path(@history) %> |
+<%= link_to 'Back', histories_path %>

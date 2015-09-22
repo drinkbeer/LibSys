@@ -4,4 +4,8 @@ class Book < ActiveRecord::Base
   validates :author, :presence => true
   validates :description, :presence => true
   #validates :status, :presence => true
+
+  def self.search(search)
+    where( "isbn like ? OR title like? OR author like? OR description like?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" )
+  end
 end

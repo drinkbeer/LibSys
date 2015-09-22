@@ -6,7 +6,11 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+      @books = Book.all
+      if params[:search]
+        @books = Book.search(params[:search])
+      else
+      end
   end
 
   # GET /books/1
@@ -18,7 +22,7 @@ class BooksController < ApplicationController
   def new
     @curr_user = current_user()
     if (@curr_user.permission == 2)
-      redirect_to users_url, notice: "Sorry, you don't have permission"
+      redirect_to books_url, notice: "Sorry, you don't have permission"
     else
       puts "permission is 2"
     end
@@ -68,7 +72,6 @@ class BooksController < ApplicationController
       format.json { head :no_content }
     end
   end
-
 
 
   private
