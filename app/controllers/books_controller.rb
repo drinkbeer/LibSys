@@ -15,6 +15,12 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
+    @curr_user = current_user()
+    if (@curr_user.permission == 2)
+      redirect_to users_url, notice: "Sorry, you don't have permission"
+    else
+      puts "permission is 2"
+    end
     @book = Book.new
   end
 
@@ -25,7 +31,6 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    #if (@current_user.permission != 2)
     @book = Book.new(book_params)
     respond_to do |format|
       if @book.save
