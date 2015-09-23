@@ -2,17 +2,19 @@ class SessionsController < ApplicationController
   # include SessionsHelper
   # before_action :set_user, only: [:create]
 
+  # return to login page, GET
+  # if alread logged in, just redirect to user's user_path
+  # if not logged in, create a session
   def new
-    # if alread logged in, just redirect to user's user_path
-    # if not logged in, create a session
     if logged_in?
-      @user = current_user
-      redirect_to user_path(@user)
+      # @user = current_user
+      redirect_to user_path(@current_user)
     else
       @session = User.new
     end
   end
 
+  # create a new session when login, POST
   def create
     puts "\n ==> User Name: " + params[:session][:email] + "\n ==> Password: " + params[:session][:password] + "\n\n"
     
@@ -56,7 +58,7 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out
-    redirect_to login_path
+    # redirect_to login_path
   end
   
   private
