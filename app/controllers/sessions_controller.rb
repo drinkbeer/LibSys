@@ -8,8 +8,10 @@ class SessionsController < ApplicationController
   def new
     if logged_in?
       # @user = current_user
+      puts "Session.New - Current User is not nil"
       redirect_to user_path(@current_user)
     else
+      puts "Session.New - Current User is nil"
       @session = User.new
     end
   end
