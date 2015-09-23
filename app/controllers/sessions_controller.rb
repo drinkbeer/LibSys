@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   # before_action :set_user, only: [:create]
 
   def new
-    # if alread logged in, just redirect to user login_path
+    # if alread logged in, just redirect to user's user_path
     # if not logged in, create a session
     if logged_in?
       @user = current_user
@@ -27,10 +27,10 @@ class SessionsController < ApplicationController
       session[:permission] = @user.password
       # flash[:notice] = "Welcom back, #{session[:name]}"
       puts "name: #{session[:name]}, id: #{session[:id]}"
-      # redirect_to users_path, :id => session[:id]
+      # redirect_to user_path, :id => session[:id]
       # redirect_to :action => "edit", :id => 1
       # redirect_to "http://www.google.com"
-      redirect_to :back
+      # redirect_to :back
     else
       # Create an error message and re-render the signin form.
       puts " ==> Authenticate failed"

@@ -7,25 +7,27 @@ class HistoriesController < ApplicationController
   # GET /histories.json
   def index
     
-    if current_user.permission != 2
-      puts current_id
-      # @histories = History.find_by bookid: 3
-      @histories = History.searchid 3
-      if @histories
-
-        puts "history is nil"
-      elsif
-        puts "history is not nil"
-      end
+    if current_user.permission == 2
+      @histories = History.find_by_sql("SELECT * FROM histories WHERE id = 1")
+      # if !@histories
+      #   puts " ==> History.find is nil"
+      # elsif
+      #   puts " ==> History.find is not nil"
+      # end
     else
-      @histories = History.all
-
-      if @histories
-
-        puts "history is nil"
-      elsif
-      puts "history is not nil"
-      end
+      @histories = History.find_by_sql("select * from histories") 
+      len = History.count_by_sql("select count(*) from histories")
+      puts "result size is : " + len.to_s
+      
+      # if !@histories
+      #   puts " ==> History.all is nil"
+      # elsif
+      #   puts " ==> History.all is not nil"
+      #   @histories.each do |h|
+      #     puts " ==> History is looping!"
+      #   end
+      
+      # end
     end
   end
 
@@ -93,9 +95,9 @@ class HistoriesController < ApplicationController
     def history_params
       params.require(:history).permit(:userid, :bookid, :checkouttime, :returntime)
     end
-  def require_login
-    unless logged_in?
-      redirect_to login_url, notice: 'login first plz'# halts request cycle
-    end
-  end
+  # def require_login
+  #   unless logged_in?
+  #     redirect_to login_url, notice: 'login first plz'# halts request cycle
+  #   end
+  # end
 end
