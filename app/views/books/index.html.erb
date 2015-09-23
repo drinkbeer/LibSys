@@ -50,7 +50,7 @@
         <% if book.status == '1' %>
             <p class="Check Out"><%= link_to "Check Out", controller: "books", action: "checkout", :id => book.id %>
         <% else %>
-            <p class="Not Available"><%= link_to "Not Available" %>
+            <p class="Not Available"><%= link_to "Not Available", book %>
         <% end %>
     <% end %>
 <% else %>

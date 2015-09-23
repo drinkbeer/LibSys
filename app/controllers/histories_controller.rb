@@ -2,7 +2,7 @@ class HistoriesController < ApplicationController
 
   include SessionsHelper
   before_action :set_history, only: [:show, :edit, :update, :destroy]
-  before_action :require_login
+  # before_action :require_login
 
   # GET /histories
   # GET /histories.json
@@ -17,7 +17,7 @@ class HistoriesController < ApplicationController
       #   puts " ==> History.find is not nil"
       # end
     else
-      @histories = History.find_by_sql("select * from histories") 
+      @histories = History.find_by_sql("select * from histories")
       len = History.count_by_sql("select count(*) from histories")
       puts "result size is : " + len.to_s
       

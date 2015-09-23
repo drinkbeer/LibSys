@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Isbn:</strong>
+  <strong>ISBN:</strong>
   <%= @book.isbn %>
 </p>
 
@@ -20,10 +20,31 @@
   <%= @book.description %>
 </p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @book.status %>
-</p>
+<% @curr_user = current_user() %>
+<% @history = History.find_by_sql(" SELECT *
+                                    FROM histories
+                                    WHERE bookid = '#{@book.id}'
+                                    AND returntime = -1 ") %>
 
-<%= link_to 'Edit', edit_book_path(@book) %> |
+<% @history.each do |hh|%>
+    <p>
+      <strong>hh:</strong>
+      <%= hh.id %>
+      <%= hh.bookid %>
+      <%= hh.userid %>
+      <strong>user:</strong>
+      <%= @curr_user.id %>
+    </p>
+    <% if @book.status == '1' %>
+        <p class="Check Out"><%= link_to "Check Out", controller: "books", action: "checkout", :id => @book.id %>
+    <% elsif hh.userid.to_s == @curr_user.id.to_s %>
+        <p class="Return the Book"><%= link_to "Return the Book", controller: "books", action: "return", :id => @book.id %>
+    <% else %>
+        <p class="Borrower"><%= "Borrower:" + @book.title%>
+    <% end %>
+<% end %>
+
+
+
+<%= link_to 'Edit', edit_book_path(@book) %>
 <%= link_to 'Back', books_path %>

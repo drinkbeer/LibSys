@@ -74,15 +74,19 @@ class BooksController < ApplicationController
   end
 
   def return
-
+    @book = Book.find(params[:id])
+    @book.status = '1'
+    @book.save
+    redirect_to :back, notice: 'Book is successfully returned.'
   end
 
   def checkout
     @book = Book.find(params[:id])
-    puts @book.title
-    puts params[:id]
-    puts "checkout success !"
-    redirect_to :back
+    @book.status = '0'
+    # puts @book.status
+    @book.save
+    # puts "checkout success !"
+    redirect_to :back, notice: 'Book is successfully checked out.'
   end
 
   private
