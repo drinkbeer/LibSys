@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
   resources :histories
-  resources :books
-  
   get 'users/regist'
 
   resources :sessions
@@ -13,11 +11,14 @@ Rails.application.routes.draw do
   resources :histories
   resources :books
 
+    get  '/books/:id(.:format)/checkout' => 'books#checkout'
+
     get   'login'   => 'sessions#new'
     post  'login'   => 'sessions#create'
     get   'logout'  => 'sessions#destroy'
     get   'password_change' => 'sessions#password'
     post  'password_change' => 'sessions#password_change'
+
 
   end
   # The priority is based upon order of creation: first created -> highest priority.

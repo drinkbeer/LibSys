@@ -1,11 +1,13 @@
 class HistoriesController < ApplicationController
-  before_action :require_login
+
   include SessionsHelper
   before_action :set_history, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
 
   # GET /histories
   # GET /histories.json
   def index
+
     
     if current_user.permission == 2
       @histories = History.find_by_sql("SELECT * FROM histories WHERE id = 1")
@@ -28,6 +30,7 @@ class HistoriesController < ApplicationController
       #   end
       
       # end
+
     end
   end
 

@@ -73,6 +73,14 @@ class BooksController < ApplicationController
     end
   end
 
+  def return
+
+  end
+
+  def checkout
+    @book.status = 0
+    puts "checkout success !"
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

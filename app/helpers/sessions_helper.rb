@@ -1,5 +1,6 @@
 module SessionsHelper
 
+
   def admin?
     current_user.role.downcase == 'admin'
   end
