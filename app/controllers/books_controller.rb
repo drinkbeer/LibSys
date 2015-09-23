@@ -78,8 +78,11 @@ class BooksController < ApplicationController
   end
 
   def checkout
-    puts @book
+    @book = Book.find(params[:id])
+    puts @book.title
+    puts params[:id]
     puts "checkout success !"
+    redirect_to :back
   end
 
   private

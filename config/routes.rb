@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get   'logout'  => 'sessions#destroy'
     get   'password_change' => 'sessions#password'
     post  'password_change' => 'sessions#password_change'
+  
     get  '/books/:id(.:format)/checkout' => 'books#checkout'
 
 
