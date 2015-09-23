@@ -33,7 +33,7 @@
 <br>
 
 <%= link_to 'New Book', new_book_path %>
-<%= link_to 'My Book', histories_path %>
+<%= link_to 'My Borrow History', histories_path %>
 
 <%= form_tag(books_path, :method => "get", id: "search-form")do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search Books" %>
@@ -47,6 +47,11 @@
         <p class="book-author"><%= book.author %></p>
         <p class="book-description"><%= book.description %></p>
         <p class="book-status"><%= book.status %></p>
+        <% if book.status == '1' %>
+            <p class="Check Out"><%= link_to "Check Out", controller: "books", action: "destroy", id:4 %>
+        <% else %>
+            <p class="Not Available"><%= link_to "Not Available" %>
+        <% end %>
     <% end %>
 <% else %>
     <p> There are no books containing(s) <%= params[:search] %>.</p>
