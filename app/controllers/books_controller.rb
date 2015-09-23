@@ -78,7 +78,7 @@ class BooksController < ApplicationController
   end
 
   def checkout
-    @book.status = 0
+    puts @book
     puts "checkout success !"
   end
 
