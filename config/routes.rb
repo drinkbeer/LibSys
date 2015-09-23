@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   get   '/books/:id(.:format)/checkout' => 'books#checkout'
   get   'books/search/:search'          => 'books#search'
 
-
+  resources :histories
+  
   root 'sessions#new'
   
   # The priority is based upon order of creation: first created -> highest priority.
