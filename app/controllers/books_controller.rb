@@ -87,9 +87,18 @@ class BooksController < ApplicationController
 
   def checkout
     @book = Book.find(params[:id])
+    @history = History.new()
+
     @book.status = '0'
+    puts '######'
+    puts params[:uid]
+    @history.userid = params[:uid]
+    @history.bookid = params[:id]
+    @history.checkouttime = 'CurrentTime'
+    @history.returntime = -1
     # puts @book.status
     @book.save
+    @history.save
     # puts "checkout success !"
     redirect_to :back, notice: 'Book is successfully checked out.'
   end

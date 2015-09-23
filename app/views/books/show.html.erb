@@ -25,25 +25,26 @@
                                     FROM histories
                                     WHERE bookid = '#{@book.id}'
                                     AND returntime = -1 ") %>
+<p>
+  <strong>If History:</strong>
+  <%= @history %>
+  <%= @book.status %>
+</p>
 
-<% @history.each do |history| %>
-    <!--<p>-->
-      <!--<strong>hh:</strong>-->
-      <!--<%= history.id %>-->
-      <!--<%= history.bookid %>-->
-      <!--<%= history.userid %>-->
-    <!--</p>-->
 
-    <% if @book.status == '1' %>
-        <p class="Check Out"><%= link_to "Check Out", controller: "books", action: "checkout", :id => @book.id %>
-    <% elsif history.userid.to_s == @curr_user.id.to_s %>
-        <p class="Return the Book"><%= link_to "Return the Book", controller: "books", action: "return", :id => @book.id %>
-    <% else %>
-        <% @user = User.find_by_sql(" SELECT *
-                                    FROM users
-                                    WHERE id = '#{history.userid}'") %>
-        <% @user.each do |borrower| %>
-            <p class="Borrower"><%= "Borrower:" + borrower.name %>
+<% if @book.status == '1' %>
+    <p class="Check Out"><%= link_to "Check Out", controller: "books", action: "checkout", :id => @book.id ,:uid => @curr_user.id %>
+<% else %>
+    <% @history.each do |history| %>
+        <% if history.userid.to_s == @curr_user.id.to_s %>
+            <p class="Return the Book"><%= link_to "Return the Book", controller: "books", action: "return", :id => @book.id %>
+        <% else %>
+            <% @user = User.find_by_sql(" SELECT *
+                                        FROM users
+                                        WHERE id = '#{history.userid}'") %>
+            <% @user.each do |borrower| %>
+                <p class="Borrower"><%= "Borrower:" + borrower.name %>
+            <% end %>
         <% end %>
     <% end %>
 <% end %>

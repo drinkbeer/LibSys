@@ -48,7 +48,7 @@
         <p class="book-description"><%= book.description %></p>
         <p class="book-status"><%= book.status %></p>
         <% if book.status == '1' %>
-            <p class="Check Out"><%= link_to "Check Out", controller: "books", action: "checkout", :id => book.id %>
+            <p class="Check Out"><%= link_to "Check Out", book %>
         <% else %>
             <p class="Not Available"><%= link_to "Not Available", book %>
         <% end %>
