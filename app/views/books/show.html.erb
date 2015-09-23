@@ -37,7 +37,7 @@
 <% else %>
     <% @history.each do |history| %>
         <% if history.userid.to_s == @curr_user.id.to_s %>
-            <p class="Return the Book"><%= link_to "Return the Book", controller: "books", action: "return", :id => @book.id %>
+            <p class="Return the Book"><%= link_to "Return the Book", controller: "books", action: "return", :id => @book.id, :hid => history.id %>
         <% else %>
             <% @user = User.find_by_sql(" SELECT *
                                         FROM users
