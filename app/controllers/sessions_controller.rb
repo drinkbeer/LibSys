@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
       session[:permission] = @user.password
       # flash[:notice] = "Welcom back, #{session[:name]}"
       puts "name: #{session[:name]}, id: #{session[:id]}"
-      # redirect_to user_path, :id => session[:id]
+      redirect_to user_path(@user)
       # redirect_to :action => "edit", :id => 1
       # redirect_to "http://www.google.com"
       # redirect_to :back
