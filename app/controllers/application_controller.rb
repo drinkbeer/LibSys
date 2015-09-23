@@ -16,13 +16,14 @@ class ApplicationController < ActionController::Base
   end
   
   def logged_in?
-    @temp = current_user()
-    !@temp.nil?
+    @current_user.nil?
   end
   
   def log_out
     session.delete(session[:id])
     @current_user = nil
+    # puts "Log Out Successfully!"
+    redirect_to login_url, notice: 'Logout Successfully!'
   end
   
   def require_login

@@ -1,35 +1,21 @@
 Rails.application.routes.draw do
 
-  resources :histories
-  get 'users/regist'
-
-  resources :sessions
   resources :users
-  Rails.application.routes.draw do
-
-
-  resources :histories
-  resources :books
-
-
-
-    get   'login'   => 'sessions#new'
-    post  'login'   => 'sessions#create'
-    get   'logout'  => 'sessions#destroy'
-    get   'password_change' => 'sessions#password'
-    post  'password_change' => 'sessions#password_change'
+  get 'users/regist'
   
-    get  '/books/:id(.:format)/checkout' => 'books#checkout'
+  resources :sessions
+  get   'login'   => 'sessions#new'
+  post  'login'   => 'sessions#create'
+  get   'logout'  => 'sessions#destroy'
+  get   'password_change' => 'sessions#password'
+  post  'password_change' => 'sessions#password_change'
+  get   'sessions/new'
+  
+  resources :books
+  get   '/books/:id(.:format)/checkout' => 'books#checkout'
+  get   'books/search/:search'          => 'books#search'
 
 
-  end
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  get 'sessions/new'
-
-  get 'books/search/:search' => 'books#search'
-  # You can have the root of your site routed with "root"
   root 'sessions#new'
   
   # The priority is based upon order of creation: first created -> highest priority.

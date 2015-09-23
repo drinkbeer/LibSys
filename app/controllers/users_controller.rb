@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @users=current_user
+    @user = current_user
   end
 
   # POST /users
@@ -76,6 +76,11 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    if !@user
+      puts "@user is nil"
+    else
+      puts "Update user: " + @user[:name]
+    end
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -115,8 +120,8 @@ class UsersController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:name,:email,:password)
-    end
+    # def user_params
+    #   params.require(:user).permit(:name,:email,:password)
+    # end
     
 end
