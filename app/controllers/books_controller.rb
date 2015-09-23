@@ -75,8 +75,13 @@ class BooksController < ApplicationController
 
   def return
     @book = Book.find(params[:id])
+
+    # UPDATE Book and History
     @book.status = '1'
+
+
     @book.save
+
     redirect_to :back, notice: 'Book is successfully returned.'
   end
 

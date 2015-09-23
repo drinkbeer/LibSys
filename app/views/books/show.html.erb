@@ -26,21 +26,25 @@
                                     WHERE bookid = '#{@book.id}'
                                     AND returntime = -1 ") %>
 
-<% @history.each do |hh|%>
-    <p>
-      <strong>hh:</strong>
-      <%= hh.id %>
-      <%= hh.bookid %>
-      <%= hh.userid %>
-      <strong>user:</strong>
-      <%= @curr_user.id %>
-    </p>
+<% @history.each do |history| %>
+    <!--<p>-->
+      <!--<strong>hh:</strong>-->
+      <!--<%= history.id %>-->
+      <!--<%= history.bookid %>-->
+      <!--<%= history.userid %>-->
+    <!--</p>-->
+
     <% if @book.status == '1' %>
         <p class="Check Out"><%= link_to "Check Out", controller: "books", action: "checkout", :id => @book.id %>
-    <% elsif hh.userid.to_s == @curr_user.id.to_s %>
+    <% elsif history.userid.to_s == @curr_user.id.to_s %>
         <p class="Return the Book"><%= link_to "Return the Book", controller: "books", action: "return", :id => @book.id %>
     <% else %>
-        <p class="Borrower"><%= "Borrower:" + @book.title%>
+        <% @user = User.find_by_sql(" SELECT *
+                                    FROM users
+                                    WHERE id = '#{history.userid}'") %>
+        <% @user.each do |borrower| %>
+            <p class="Borrower"><%= "Borrower:" + borrower.name %>
+        <% end %>
     <% end %>
 <% end %>
 
