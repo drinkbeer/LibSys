@@ -2,16 +2,19 @@
     Welcome preAdmin <%= @user.name %>
     <%= link_to 'Show all user', users_path %>
     <%= link_to 'Edit my profile', edit_user_path(@user) %>
+    <%= link_to 'Library system', books_path %>
     <%= link_to 'log out', logout_path %>
 <%end%>
 <%if @user.permission==1%>
     Welcome Admin <%= @user.name %>
     <%= link_to 'Show all user', users_path %>
     <%= link_to 'Edit my profile', edit_user_path(@user) %>
+    <%= link_to 'Library system', books_path %>
     <%= link_to 'log out', logout_path %>
 <%end%>
 <%if @user.permission==2%>
     Welcome member <%= @user.name %>
     <%= link_to 'Edit my profile', edit_user_path(@user) %>
+    <%= link_to 'Library system', books_path %>
     <%= link_to 'log out', logout_path %>
 <%end%>

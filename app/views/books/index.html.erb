@@ -31,10 +31,10 @@
 </table>
 
 <br>
-
+<%= if current_user.permission==1||current_user.permission==0 %>
 <%= link_to 'New Book', new_book_path %>
-<%= link_to 'My Borrow History', histories_path %>
-
+<%= link_to 'All Borrow History', histories_path %>
+<%= end %>
 <%= form_tag(books_path, :method => "get", id: "search-form")do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search Books" %>
   <%= submit_tag "Search" %>
