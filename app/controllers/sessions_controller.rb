@@ -18,16 +18,11 @@ class SessionsController < ApplicationController
     @user = User.find_by_email(params[:session][:email].downcase)
     if @user || @user.authenticate(params[:session][:email].downcase, params[:session][:password].downcase)
       # Sign the user in and redirect to the user's show page.
-      # puts " ==> Authenticate successfully"
       log_in(@user);
       redirect_to :controller => 'users', :action => 'show', :id => session[:id]
       
-      # redirect_to :action => "edit", :id => 1
-      # redirect_to "http://www.google.com"
-      # redirect_to :back
     else
       # Create an error message and re-render the signin form.
-      # puts " ==> Authenticate failed"
       flash[:notice] = "Invalid email or password"
       redirect_to login_path
     end

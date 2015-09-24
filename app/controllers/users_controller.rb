@@ -81,8 +81,6 @@ class UsersController < ApplicationController
   # GET /users/regist
   def regist
     @user = User.new
-    # puts "In Regist Func"
-    # redirect_to users_regist_path
   end
 
   # PATCH/PUT /users/1
