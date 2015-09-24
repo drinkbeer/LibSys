@@ -75,14 +75,14 @@ class BooksController < ApplicationController
 
   def return
     @book = Book.find(params[:id])
-    @histroy = History.find(params[:hid])
-    # UPDATE Book and History
-    puts '#############'
-    puts @history
-    puts params[:hid]
-    puts '#############'
-    @book.status = '1'
+    @history = History.find(params[:hid])
+    t = Time.now
 
+    # UPDATE Book and History
+    @book.status = '1'
+    @history.returntime = t
+
+    # SAVE TO DATABASE
     @book.save
     @history.save
     redirect_to :back, notice: 'Book is successfully returned.'
@@ -91,14 +91,16 @@ class BooksController < ApplicationController
   def checkout
     @book = Book.find(params[:id])
     @history = History.new()
+    t = Time.now
 
     # UPDATE BOOK and HISTORY
     @book.status = '0'
     @history.userid = params[:uid]
     @history.bookid = params[:id]
-    @history.checkouttime = 'CurrentTime'
+    @history.checkouttime = t
     @history.returntime = -1
-    # puts @book.status
+
+    # SAVE TO DATABASE
     @book.save
     @history.save
     # puts "checkout success !"
