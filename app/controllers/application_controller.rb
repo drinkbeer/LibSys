@@ -1,27 +1,41 @@
 class ApplicationController < ActionController::Base
+  
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  # def log_in(user)
-  #   session[:id] = user.id
-  # end
+  def log_in(user)
+    session[:id] = user.id
+  end
   
   def current_user
-    @current_user ||= User.find_by(id: session[:id])
+    # @current_user ||= User.find_by_sql("SELECT * FROM users WHERE id = #{session[:id]}")
+    if session[:id].nil?
+      nil
+    else
+      User.find(session[:id]);
+    end
+    # @current_user ||= User.find(session[:id]);
   end
 
   def current_id
     session[:id]
   end
   
+  # current_user == nil -> current_user.nil == true -> return false -> not logged in
   def logged_in?
-    !@current_user.nil?
+    !current_user.nil?
   end
   
   def log_out
-    session.delete(session[:id])
-    @current_user = nil
+    # session.delete(session[:id])
+    session[:id] = nil
+    current_user = nil
+    if logged_in?
+      puts "In log_out, still log in"
+    else
+      puts "In log_out, log out now"
+    end
     # puts "Log Out Successfully!"
     redirect_to login_url, notice: 'Logout Successfully!'
   end

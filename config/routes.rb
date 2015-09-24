@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  resources :users
   get 'users/regist'
+  resources :users
   
   resources :sessions
   get   'login'   => 'sessions#new'
@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   
   resources :books
   get   '/books/:id(.:format)/checkout' => 'books#checkout'
+  get   '/books/:id(.:format)/return' => 'books#return'
   get   'books/search/:search'          => 'books#search'
 
   resources :histories
