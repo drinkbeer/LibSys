@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Isbn:</strong>
+  <strong>ISBN:</strong>
   <%= @book.isbn %>
 </p>
 
@@ -20,10 +20,36 @@
   <%= @book.description %>
 </p>
 
+<% @curr_user = current_user() %>
+<% @history = History.find_by_sql(" SELECT *
+                                    FROM histories
+                                    WHERE bookid = '#{@book.id}'
+                                    AND returntime = -1 ") %>
 <p>
-  <strong>Status:</strong>
+  <strong>If History:</strong>
+  <%= @history %>
   <%= @book.status %>
 </p>
 
-<%= link_to 'Edit', edit_book_path(@book) %> |
+
+<% if @book.status == '1' %>
+    <p class="Check Out"><%= link_to "Check Out", controller: "books", action: "checkout", :id => @book.id ,:uid => @curr_user.id %>
+<% else %>
+    <% @history.each do |history| %>
+        <% if history.userid.to_s == @curr_user.id.to_s %>
+            <p class="Return the Book"><%= link_to "Return the Book", controller: "books", action: "return", :id => @book.id, :hid => history.id %>
+        <% else %>
+            <% @user = User.find_by_sql(" SELECT *
+                                        FROM users
+                                        WHERE id = '#{history.userid}'") %>
+            <% @user.each do |borrower| %>
+                <p class="Borrower"><%= "Borrower:" + borrower.name %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% end %>
+
+
+
+<%= link_to 'Edit', edit_book_path(@book) %>
 <%= link_to 'Back', books_path %>

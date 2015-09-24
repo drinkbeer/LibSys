@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get   'books/search/:search'          => 'books#search'
 
   resources :histories
+  get   '/books/show'          => 'books#show'
   
   root 'sessions#new'
   
