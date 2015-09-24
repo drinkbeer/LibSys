@@ -21,7 +21,11 @@
         <td><%= book.title %></td>
         <td><%= book.author %></td>
         <td><%= book.description %></td>
-        <td><%= book.status %></td>
+        <%if book.status=='1'%>
+        <td><%= 'Available' %></td>
+        <% else %>
+            <td><%= 'Unavailable' %></td>
+        <% end %>
         <td><%= link_to 'Show', book %></td>
         <td><%= link_to 'Edit', edit_book_path(book) %></td>
         <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -58,3 +62,5 @@
 <% else %>
     <p> There are no books containing(s) <%= params[:search] %>.</p>
 <% end %>
+<%= link_to 'log out', logout_path %>
+<%= link_to 'Main', user_path(current_user) %>

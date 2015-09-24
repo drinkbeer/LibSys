@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_login , except: [:regist, :create]
+  before_action :set_user, only: [ :edit, :update, :destroy]
   # skip_before_action :require_login, only: [:new, :create, :regist]
 
   # include SessionsHelper
@@ -31,7 +32,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = current_user
+    #@user = current_user
   end
 
   # POST /users
@@ -105,15 +106,27 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    @history = History.find_by_sql(" SELECT *
+                                    FROM histories
+                                    WHERE userid = '#{@user.id}'
+                                    AND returntime = -1 ")
     @ture=0
+    
     if(@user.id==current_user.id)
        redirect_to users_url(current_user), notice: 'you can not del yourself'
        @ture=1
     end
+
     if(@user.permission<current_user.permission)
       redirect_to users_url(current_user), notice: 'you can not del perAdmin'
       @ture=1
     end
+
+    if(@history!=nil)
+      redirect_to users_url(current_user), notice: 'user still have unreturned book'
+      @ture=1
+    end
+
     if(@ture==0)
       @user.destroy
       respond_to do |format|
@@ -130,8 +143,8 @@ class UsersController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    # def user_params
-    #   params.require(:user).permit(:name,:email,:password)
-    # end
+     def user_params
+      params.require(:user).permit(:name,:email,:password)
+     end
     
 end
