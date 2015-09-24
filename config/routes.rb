@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-
-  resources :users
   get 'users/regist'
+  resources :users
+
   
   resources :sessions
   get   'login'   => 'sessions#new'

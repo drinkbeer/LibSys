@@ -2,7 +2,7 @@ module SessionsHelper
 
 
   def admin?
-    current_user.role.downcase == 'admin'
+    current_user.permission < 2
   end
 
   # def log_out
