@@ -2,6 +2,7 @@ class HistoriesController < ApplicationController
 
   include SessionsHelper
   before_action :set_history, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
   # before_action :require_login
 
   # GET /histories
@@ -10,7 +11,8 @@ class HistoriesController < ApplicationController
 
     
     if current_user.permission == 2
-      @histories = History.find_by_sql("SELECT * FROM histories WHERE id = 1")
+      puts current_id
+      @histories = History.find_by_sql("SELECT * FROM histories WHERE userid ='#{current_id}' ")
       # if !@histories
       #   puts " ==> History.find is nil"
       # elsif

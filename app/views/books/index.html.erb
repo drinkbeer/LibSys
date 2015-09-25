@@ -21,7 +21,11 @@
         <td><%= book.title %></td>
         <td><%= book.author %></td>
         <td><%= book.description %></td>
-        <td><%= book.status %></td>
+        <%if book.status=='1'%>
+        <td><%= 'Available' %></td>
+        <% else %>
+            <td><%= 'Unavailable' %></td>
+        <% end %>
         <td><%= link_to 'Show', book %></td>
         <td><%= link_to 'Edit', edit_book_path(book) %></td>
         <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -31,9 +35,12 @@
 </table>
 
 <br>
-
+<%if admin?%>
 <%= link_to 'New Book', new_book_path %>
-<%= link_to 'My Borrow History', histories_path %>
+<%= link_to 'All Borrow History', histories_path %>
+    <%else%>
+    <%= link_to 'My Borrow History', histories_path %>
+<% end %>
 
 <%= form_tag(books_path, :method => "get", id: "search-form")do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search Books" %>
@@ -56,3 +63,5 @@
 <% else %>
     <p> There are no books containing(s) <%= params[:search] %>.</p>
 <% end %>
+<%= link_to 'log out', logout_path %>
+<%= link_to 'Main', user_path(current_user) %>
