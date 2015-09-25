@@ -1,7 +1,7 @@
 class HistoriesController < ApplicationController
 
   include SessionsHelper
-  before_action :set_history, only: [:show, :edit, :update, :destroy]
+  before_action :set_history, only: [:edit, :update, :destroy]
   before_action :require_login
   # before_action :require_login
 
@@ -39,6 +39,7 @@ class HistoriesController < ApplicationController
   # GET /histories/1
   # GET /histories/1.json
   def show
+    @histories = History.find_by_sql("SELECT * FROM histories WHERE userid ='#{params[:id]}' ")
   end
 
   # GET /histories/new

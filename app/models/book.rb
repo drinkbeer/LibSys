@@ -6,8 +6,13 @@ class Book < ActiveRecord::Base
   #validates :status, :presence => true
 
   def self.search(search)
-    where( "isbn like ? OR title like? OR author like? OR description like?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" )
+    if(search.upcase=='AVAILABLE')
+      where( "status like ? ","1" )
+    else
+      where( "isbn like ? OR title like? OR author like? OR description like?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" )
+    end
   end
+
 
   def self.searchu(searchu)
     User.find_by_email(searchu)

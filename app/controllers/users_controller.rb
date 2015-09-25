@@ -131,6 +131,12 @@ class UsersController < ApplicationController
 
     if(@ture==0)
       @user.destroy
+      @histories = History.find_by_sql(" SELECT *
+                                    FROM histories
+                                    WHERE userid = '#{@user.id}' ")
+      @histories.each do |history|
+        history.destroy
+      end
       respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
