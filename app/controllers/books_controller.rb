@@ -73,6 +73,7 @@ class BooksController < ApplicationController
     end
   end
 
+  # Return the Book
   def return
     @book = Book.find(params[:id])
     @history = History.find(params[:hid])
@@ -88,6 +89,7 @@ class BooksController < ApplicationController
     redirect_to :back, notice: 'Book is successfully returned.'
   end
 
+  # Check out the Book
   def checkout
     @book = Book.find(params[:id])
     @history = History.new()
@@ -105,6 +107,30 @@ class BooksController < ApplicationController
     @history.save
     # puts "checkout success !"
     redirect_to :back, notice: 'Book is successfully checked out.'
+  end
+
+
+  def searchu
+    @otheruser = Book.searchu(params[:searchu].to_s)
+    @book = Book.find(params[:bid])
+    if @otheruser
+      if params[:searchu] and @otheruser.permission < 2
+        redirect_to :back, notice: 'Can`t check out for Admin'
+      else
+        @history = History.new()
+        t = Time.now
+        @book.status = '0'
+        @history.userid = @otheruser.id
+        @history.bookid = params[:bid]
+        @history.checkouttime = t
+        @history.returntime = -1
+        @book.save
+        @history.save
+        redirect_to :back, notice: 'Check out successfully'
+      end
+    else
+      redirect_to :back, notice: 'Can`t find this user'
+    end
   end
 
   private

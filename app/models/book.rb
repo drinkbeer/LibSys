@@ -8,4 +8,8 @@ class Book < ActiveRecord::Base
   def self.search(search)
     where( "isbn like ? OR title like? OR author like? OR description like?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" )
   end
+
+  def self.searchu(searchu)
+    User.find_by_email(searchu)
+  end
 end

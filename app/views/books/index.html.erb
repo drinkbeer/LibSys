@@ -41,6 +41,7 @@
     <%else%>
     <%= link_to 'My Borrow History', histories_path %>
 <% end %>
+
 <%= form_tag(books_path, :method => "get", id: "search-form")do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search Books" %>
   <%= submit_tag "Search" %>

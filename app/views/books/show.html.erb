@@ -25,15 +25,18 @@
                                     FROM histories
                                     WHERE bookid = '#{@book.id}'
                                     AND returntime = -1 ") %>
-<p>
-  <strong>If History:</strong>
-  <%= @history %>
-  <%= @book.status %>
-</p>
 
 
 <% if @book.status == '1' %>
-    <p class="Check Out"><%= link_to "Check Out", controller: "books", action: "checkout", :id => @book.id ,:uid => @curr_user.id %>
+    <% if @curr_user.permission == 2 %>
+        <p class="Check Out"><%= link_to "Check Out", controller: "books", action: "checkout", :id => @book.id ,:uid => @curr_user.id %>
+    <% else %>
+        <%= form_tag(searchu_path, :method => "get", id: "searchu-form")do %>
+            <%= text_field_tag :searchu, params[:searchu], placeholder: "Check out for user (E-mail)" %>
+            <%= hidden_field_tag :bid, @book.id %>
+            <%= submit_tag "Check Out for this User" %>
+        <% end %>
+    <% end %>
 <% else %>
     <% @history.each do |history| %>
         <% if history.userid.to_s == @curr_user.id.to_s %>
@@ -46,10 +49,11 @@
                 <p class="Borrower"><%= "Borrower:" + borrower.name %>
             <% end %>
         <% end %>
+        <% if @curr_user.permission < 2 %>
+            <p class="Return the Book"><%= link_to "Return the Book", controller: "books", action: "return", :id => @book.id, :hid => history.id %>
+        <% end %>
     <% end %>
 <% end %>
-
-
 
 <%= link_to 'Edit', edit_book_path(@book) %>
 <%= link_to 'Back', books_path %>

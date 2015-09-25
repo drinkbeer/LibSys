@@ -111,7 +111,7 @@ class UsersController < ApplicationController
                                     WHERE userid = '#{@user.id}'
                                     AND returntime = -1 ")
     @ture=0
-    
+
     if(@user.id==current_user.id)
        redirect_to users_url(current_user), notice: 'you can not del yourself'
        @ture=1
@@ -135,7 +135,8 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
