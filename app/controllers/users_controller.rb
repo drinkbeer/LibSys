@@ -106,7 +106,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @history = History.find_by_sql(" SELECT *
+    @histories = History.find_by_sql(" SELECT *
                                     FROM histories
                                     WHERE userid = '#{@user.id}'
                                     AND returntime = -1 ")
@@ -122,9 +122,11 @@ class UsersController < ApplicationController
       @ture=1
     end
 
-    if(@history!=nil)
-      redirect_to users_url(current_user), notice: 'user still have unreturned book'
-      @ture=1
+    @histories.each do |history|
+      if(history.userid)
+        @ture=1
+        redirect_to users_url(current_user), notice: 'user still have unreturned book'
+      end
     end
 
     if(@ture==0)
