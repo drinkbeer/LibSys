@@ -18,9 +18,9 @@
       <p>No history</p>
     <% else %>
     <% @histories.each do |history| %>
-      <tr>>
+      <tr>
         <td><%= history.userid %></td>
-        <td><%= link_to history.bookid, controller: "books", action: "show", :id => history.bookid %></td>
+        <td><%= history.bookid %></td>
         <td><%= history.checkouttime %></td>
         <td><%= history.returntime %></td>
         <td><%= link_to 'Show', history %></td>
