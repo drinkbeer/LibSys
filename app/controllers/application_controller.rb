@@ -46,6 +46,18 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def is_admin?
+    current_user.permission == 1
+  end
+  
+  def is_member?
+    current_user.permission == 2
+  end
+  
+  def is_super_admin?
+    current_user.permission == 0
+  end
+  
   # define current_user function as helper_method to allow it be used in view level
-  helper_method :current_user
+  helper_method :current_user, :logged_in?, :is_admin?, :is_member, :is_super_admin
 end

@@ -1,0 +1,15 @@
+<!-- app/views/shared/_navigation.html.erb -->
+
+<nav class="navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <%= link_to 'Edit my profile', edit_user_path(@user), class: "navbar-brand" %>
+      <%= link_to 'log out', logout_path, class: "navbar-brand" %>
+      
+      <% if is_admin? %>
+        <%= link_to 'Show all user', users_path, class: "navbar-brand" %>
+      <% end %>
+      <a class="navbar-brand" href="/">NAV4</a>
+    </div>
+  </div>
+</nav>
