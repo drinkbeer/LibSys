@@ -63,5 +63,7 @@
 <% else %>
     <p> There are no books containing(s) <%= params[:search] %>.</p>
 <% end %>
+
+
 <%= link_to 'log out', logout_path %>
 <%= link_to 'Main', user_path(current_user) %>
