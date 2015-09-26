@@ -2,7 +2,7 @@
 
 <h1>Listing Histories</h1>
 
-<table>
+<table class="table table-striped"> 
   <thead>
     <tr>
       <th>Userid</th>
@@ -29,11 +29,11 @@
         <td><%= link_to @book.title, controller: "books", action: "show", :id => history.bookid  %></td>
         <td><%= history.checkouttime %></td>
         <td><%= history.returntime %></td>
-        <td><%= link_to 'Show', history %></td>
-        <td><%= link_to 'Edit', edit_history_path(history) %></td>
-        <td><%= link_to 'Destroy', history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', history, class: "btn btn-xs btn-default" %></td>
+        <td><%= link_to 'Edit', edit_history_path(history), class: "btn btn-xs btn-default" %></td>
+        <td><%= link_to 'Destroy', history, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-default" %></td>
         <td><% if history.returntime == '-1' %>
-            <p class="Return the Book"><%= link_to "Return the Book", controller: "books", action: "return", :id => history.bookid, :hid => history.id %>
+            <p class="Return the Book"><%= link_to "Return the Book", controller: "books", action: "return", :id => history.bookid, :hid => history.id, class: "btn btn-xs btn-default" %>
         <% end %></td>
       </tr>
     <% end %>
@@ -43,6 +43,4 @@
 
 <br>
 
-<%= link_to 'Library system', books_path %>
-<%= link_to 'log out', logout_path %>
 
