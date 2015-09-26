@@ -42,9 +42,9 @@
         <% if history.userid.to_s == @curr_user.id.to_s %>
             <p class="Return the Book"><%= link_to "Return the Book", controller: "books", action: "return", :id => @book.id, :hid => history.id %>
         <% else %>
-            <% @user = User.find_by_sql(" SELECT *
-                                        FROM users
-                                        WHERE id = '#{history.userid}'") %>
+            <% @user = User.find_by_sql("   SELECT *
+                                            FROM users
+                                            WHERE id = '#{history.userid}'") %>
             <% @user.each do |borrower| %>
                 <p class="Borrower"><%= "Borrower:" + borrower.name %>
             <% end %>
@@ -53,6 +53,41 @@
             <p class="Return the Book"><%= link_to "Return the Book", controller: "books", action: "return", :id => @book.id, :hid => history.id %>
         <% end %>
     <% end %>
+<% end %>
+
+<% if @curr_user.permission < 2 %>
+    <% @histories = History.find_by_sql(" SELECT *
+                                    FROM histories
+                                    WHERE bookid = '#{@book.id}' ") %>
+
+    <h1>Borrow history of this book</h1>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Userid</th>
+        <th>Bookid</th>
+        <th>Checkouttime</th>
+        <th>Returntime</th>
+        <th colspan="3"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% if !@histories %>
+          <p>No borrow history</p>
+      <% else %>
+          <% @histories.each do |history| %>
+              <tr>
+                <td><%= history.userid %></td>
+                <td><%= history.bookid %></td>
+                <td><%= history.checkouttime %></td>
+                <td><%= history.returntime %></td>
+              </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
 <% end %>
 
 <%= link_to 'Edit', edit_book_path(@book) %>

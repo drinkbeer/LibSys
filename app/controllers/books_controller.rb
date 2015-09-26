@@ -65,10 +65,28 @@ class BooksController < ApplicationController
   # DELETE /books/1
   # DELETE /books/1.json
   def destroy
-    @book.destroy
-    respond_to do |format|
-      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
-      format.json { head :no_content }
+    @histories = History.find_by_sql(" SELECT *
+                                    FROM histories
+                                    WHERE bookid = '#{@book.id}' ")
+    @ture=0
+
+    @histories.each do |history|
+      if (history.returntime == '-1')
+        @ture=1
+        redirect_to books_url notice: 'The Book is still checked out'
+      end
+    end
+
+    if (@ture == 0)
+      @histories.each do |history|
+        history.destroy
+      end
+
+      @book.destroy
+      respond_to do |format|
+        format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
