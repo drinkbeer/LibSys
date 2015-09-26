@@ -31,13 +31,9 @@ class ApplicationController < ActionController::Base
     # session.delete(session[:id])
     session[:id] = nil
     current_user = nil
-    if logged_in?
-      puts "In log_out, still log in"
-    else
-      puts "In log_out, log out now"
-    end
-    # puts "Log Out Successfully!"
-    redirect_to login_url, notice: 'Logout Successfully!'
+    
+    flash[:success] = 'Logout Successfully!'
+    redirect_to login_url
   end
   
   def require_login
