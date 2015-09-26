@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     puts "\n ==> User Name: " + params[:session][:email] + "\n ==> Password: " + params[:session][:password] + "\n\n"
     
     @user = User.find_by_email(params[:session][:email].downcase)
-    if @user || @user.authenticate(params[:session][:email].downcase, params[:session][:password].downcase)
+    if @user && @user.authenticate(params[:session][:email].downcase, params[:session][:password].downcase)
       # Sign the user in and redirect to the user's show page.
       log_in(@user);
       redirect_to :controller => 'users', :action => 'show', :id => session[:id]
