@@ -2,8 +2,8 @@ class UsersController < ApplicationController
   before_action :require_login , except: [:regist, :create]
   before_action :set_user, only: [ :edit, :update, :destroy]
   # skip_before_action :require_login, only: [:new, :create, :regist]
-
   # include SessionsHelper
+  
   # GET /users
   # GET /users.json
   def index
@@ -14,14 +14,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    puts "In show"
     @user = current_user
-    if @user.nil?
-      puts "User.Show - @user is nil"
-    else
-      puts @user
-      puts "User.Show - @user is not nil, permission is: " + @user.permission.to_s
-    end
   end
   
   # GET /users/new
@@ -32,12 +25,10 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    #@user = current_user
   end
 
   # POST /users
   # POST /users.json
-  # 
   def create
     @ture=1
     @user = User.new(user_params)
