@@ -6,6 +6,12 @@
   <%= stylesheet_link_tag    'signin', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#span_create').click(
+      function(){ $('#new_book').submit() });
+    });
+  </script>
 </head>
 <body>
 

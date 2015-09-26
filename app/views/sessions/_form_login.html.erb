@@ -9,10 +9,8 @@
         </div>
         
         <div class="col-xs-8">
-        
           <div class="row">
             
-
             <%= form_for(:session, url: login_path, :html => {:class => "form-horizontal center"}) do |f| %>
               <div class="row">
                 <div class="form-group col-lg-8">
@@ -34,10 +32,10 @@
                     <%= link_to 'Regist', users_regist_path, class: 'btn btn-default' %>
                 </div>
               </div>
-            <% end %>
+            <% end %><!-- form end -->
 
-          </div>
-        </div>
+          </div><!-- div for row -->
+        </div><!-- div for col-xs-8 -->
       </div>
     </div>
   </div>

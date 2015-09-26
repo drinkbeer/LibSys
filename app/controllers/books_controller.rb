@@ -9,7 +9,6 @@ class BooksController < ApplicationController
       @books = Book.all
       if params[:search]
         @books = Book.search(params[:search])
-      else
       end
   end
 
