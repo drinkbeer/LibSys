@@ -8,8 +8,17 @@
   <%= csrf_meta_tags %>
   <script type="text/javascript">
     $(document).ready(function() {
-      $('#span_create').click(function(){ $('#new_book').submit(console.log("inner")  ) });
-      $('#span_create_user').click(function(){ $('#new_user').submit(console.log("inner")   ) });
+      $('#span_create').click(function(e){ 
+        console.log("before book create JS");
+        e.preventDefault(); 
+        $('#new_book').submit(console.log("inner")); 
+        console.log("After book create JS");
+      });
+      
+      $('#span_create_user').click(function(e){
+        e.preventDefault(); 
+        $('#new_user').submit(console.log("inner"));    
+      });
     });
   </script>
 </head>

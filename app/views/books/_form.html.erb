@@ -57,14 +57,14 @@
               <hr style="border:3 double #987cb9" width="80%" color=#987cb9 SIZE=3>
               <div class="actions">
 
-                <%= link_to new_book_path, class: 'btn btn-success', id: "span_create" do %>
+                <%= link_to new_book_path, :onclick => "$('#new_book').submit()", class: 'btn btn-success', id: "span_create" do %>
                   <i class="glyphicon glyphicon-plus"></i> Create
                 <% end %>
 
               </div>
               
             <% end %><!-- end of form -->
-        
+          </div>
           </div><!-- div for row -->
         </div><!-- div for col-xs-8 -->
       </div>

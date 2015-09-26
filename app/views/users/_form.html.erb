@@ -40,11 +40,12 @@
               
               <hr style="border:3 double #987cb9" width="80%" color=#987cb9 SIZE=3>
 
-                <%= link_to new_user_path, class: 'btn btn-success', id: "span_create_user" do %>
+                <%= link_to new_user_path, :onclick => "$('#new_user').submit()", class: 'btn btn-success', id: "span_create_user" do %>
                   <i class="glyphicon glyphicon-plus"></i> Create
                 <% end %>
               
             <% end %>
+          </div>
           </div><!-- div for row -->
         </div><!-- div for col-xs-8 -->
       </div>

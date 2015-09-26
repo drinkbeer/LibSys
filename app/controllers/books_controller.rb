@@ -35,6 +35,7 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
+    puts "create!!!!"
     @book = Book.new(book_params)
     respond_to do |format|
       if @book.save
