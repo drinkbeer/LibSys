@@ -7,20 +7,20 @@
       <%= link_to 'Main Page', user_path(current_user), class: "navbar-brand" %>
       <%= link_to 'Edit Profile', edit_user_path(current_user), class: "navbar-brand" %>
       <%= link_to 'My Books', books_path, class: "navbar-brand" %>
-      
+
       <% if member? %>
-        <%= link_to 'My History', histories_path %>
+          <%= link_to 'My History', histories_path ,class: "navbar-brand"%>
           <%= link_to 'Suggest book', new_suggest_book_path, class: "navbar-brand" %>
       <% end %>
-      
+
       <% if admin? %>
-        <%= link_to 'All User', users_path, class: "navbar-brand" %>
-        <%= link_to 'Add Book', new_book_path, class: "navbar-brand" %>
-        <%= link_to 'All History', histories_path, class: "navbar-brand" %>
-        <%= link_to 'New Admin', new_user_path, class: "navbar-brand" %>
+          <%= link_to 'All User', users_path, class: "navbar-brand" %>
+          <%= link_to 'Add Book', new_book_path, class: "navbar-brand" %>
+          <%= link_to 'All History', histories_path, class: "navbar-brand" %>
+          <%= link_to 'New Admin', new_user_path, class: "navbar-brand" %>
           <%= link_to 'Suggested book', suggest_books_path, class: "navbar-brand" %>
       <% end %>
-      
+
       <%= link_to 'Logout', logout_path, class: "navbar-brand" %>
     </div>
   </div>

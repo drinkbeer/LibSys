@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [ :edit, :update, :destroy]
   # skip_before_action :require_login, only: [:new, :create, :regist]
   # include SessionsHelper
-  
+
   # GET /users
   # GET /users.json
   def index
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def show
     @user = current_user
   end
-  
+
   # GET /users/new
   # for regist new admin
   def new
@@ -47,15 +47,15 @@ class UsersController < ApplicationController
         @user.permission=2
       end
       if logged_in?
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+        respond_to do |format|
+          if @user.save
+            format.html { redirect_to @user, notice: 'User was successfully created.' }
+            format.json { render :show, status: :created, location: @user }
+          else
+            format.html { render :new }
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+          end
+        end
       else
         respond_to do |format|
           if @user.save
@@ -65,9 +65,9 @@ class UsersController < ApplicationController
             format.html { render :new }
             format.json { render json: @user.errors, status: :unprocessable_entity }
           end
-          end
-    end
+        end
       end
+    end
   end
 
   # GET /users/regist
@@ -97,54 +97,48 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @histories = History.find_by_sql(" SELECT *
+    @history = History.find_by_sql(" SELECT *
                                     FROM histories
                                     WHERE userid = '#{@user.id}'
-                                    AND returntime = -1 ")
+                                    AND returntime = '-1' ")
     @ture=0
-
+    @true=0
     if(@user.id==current_user.id)
-       redirect_to users_url(current_user), notice: 'you can not del yourself'
-       @ture=1
+      redirect_to users_url(current_user), notice: 'you can not del yourself'
+      @ture=1
+      @true=1
     end
 
     if(@user.permission<current_user.permission)
       redirect_to users_url(current_user), notice: 'you can not del perAdmin'
       @ture=1
+      @true=1
     end
-
-    @histories.each do |history|
-      if(history.userid)
-        @ture=1
+    if(@true==0)
+      if(@history.size!=0)
         redirect_to users_url(current_user), notice: 'user still have unreturned book'
+        @ture=1
       end
     end
-
     if(@ture==0)
       @user.destroy
-      @histories = History.find_by_sql(" SELECT *
-                                    FROM histories
-                                    WHERE userid = '#{@user.id}' ")
-      @histories.each do |history|
-        history.destroy
-      end
       respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+        format.json { head :no_content }
       end
     end
   end
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-     def user_params
-      params.require(:user).permit(:name,:email,:password)
-     end
-    
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:name,:email,:password)
+  end
+
 end

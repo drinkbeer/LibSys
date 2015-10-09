@@ -2,14 +2,14 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   before_action :require_login
   # include SessionsHelper
-  
+
   # GET /books
   # GET /books.json
   def index
-      @books = Book.all
-      if params[:search]
-        @books = Book.search(params[:search])
-      end
+    @books = Book.all
+    if params[:search]
+      @books = Book.search(params[:search])
+    end
   end
 
   # GET /books/1
@@ -37,6 +37,7 @@ class BooksController < ApplicationController
   def create
     puts "create!!!!"
     @book = Book.new(book_params)
+    @book.status='1'
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
@@ -78,16 +79,17 @@ class BooksController < ApplicationController
       end
     end
 
-    if (@ture == 0)
+    if (@ture == 0&&current_user.permission<2)
       @histories.each do |history|
         history.destroy
       end
-
       @book.destroy
       respond_to do |format|
         format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
         format.json { head :no_content }
       end
+    else
+      redirect_to books_url notice: 'Only admin and preadmin can delete the book'
     end
   end
 
@@ -152,13 +154,13 @@ class BooksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def book_params
-      params.require(:book).permit(:isbn, :title, :author, :description, :status)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def book_params
+    params.require(:book).permit(:isbn, :title, :author, :description, :status)
+  end
 end

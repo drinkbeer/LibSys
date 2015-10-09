@@ -5,6 +5,14 @@ class SessionsController < ApplicationController
   # if alread logged in, just redirect to user's user_path
   # if not logged in, create a session
   def new
+    if(User.find_by_email("you@you")==nil)
+      u=User.new
+      u.name='you'
+      u.email='you@you'
+      u.password='bb'
+      u.permission=0
+      u.save
+    end
     if logged_in?
       redirect_to user_path(current_user)
     end
@@ -14,13 +22,13 @@ class SessionsController < ApplicationController
   # create a new session if login successfully
   def create
     puts "\n ==> User Name: " + params[:session][:email] + "\n ==> Password: " + params[:session][:password] + "\n\n"
-    
-    @user = User.find_by_email(params[:session][:email].downcase)
-    if @user && @user.authenticate(params[:session][:email].downcase, params[:session][:password].downcase)
+
+    @user = User.find_by_email(params[:session][:email])
+    if @user && @user.authenticate(params[:session][:email], params[:session][:password])
       # Sign the user in and redirect to the user's show page.
       log_in(@user);
       redirect_to :controller => 'users', :action => 'show', :id => session[:id]
-      
+
     else
       # Create an error message and re-render the signin form.
       flash[:notice] = "Invalid email or password"
@@ -47,5 +55,5 @@ class SessionsController < ApplicationController
     log_out
     # redirect_to login_path
   end
-    
+
 end
