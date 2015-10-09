@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :suggest_books
   get 'users/regist'
   resources :users
 
@@ -21,7 +22,8 @@ Rails.application.routes.draw do
   get   '/books/show'          => 'books#show'
   
   root 'sessions#new'
-  
+  resources :suggest_books
+  get   '/suggest_books/:id(.:format)/available' => 'suggest_books#available'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

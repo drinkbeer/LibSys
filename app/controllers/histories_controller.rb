@@ -9,7 +9,7 @@ class HistoriesController < ApplicationController
   # GET /histories.json
   def index
 
-    
+
     if current_user.permission == 2
       puts current_id
       @histories = History.find_by_sql("SELECT * FROM histories WHERE userid ='#{current_id}' ")
@@ -22,7 +22,7 @@ class HistoriesController < ApplicationController
       @histories = History.find_by_sql("select * from histories")
       len = History.count_by_sql("select count(*) from histories")
       puts "result size is : " + len.to_s
-      
+
       # if !@histories
       #   puts " ==> History.all is nil"
       # elsif
@@ -30,7 +30,7 @@ class HistoriesController < ApplicationController
       #   @histories.each do |h|
       #     puts " ==> History is looping!"
       #   end
-      
+
       # end
 
     end
@@ -92,15 +92,15 @@ class HistoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_history
-      @history = History.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_history
+    @history = History.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def history_params
-      params.require(:history).permit(:userid, :bookid, :checkouttime, :returntime)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def history_params
+    params.require(:history).permit(:userid, :bookid, :checkouttime, :returntime)
+  end
   # def require_login
   #   unless logged_in?
   #     redirect_to login_url, notice: 'login first plz'# halts request cycle

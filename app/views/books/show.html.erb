@@ -24,7 +24,7 @@
 <% @history = History.find_by_sql(" SELECT *
                                     FROM histories
                                     WHERE bookid = '#{@book.id}'
-                                    AND returntime = -1 ") %>
+                                    AND returntime = '-1' ") %>
 
 
 <% if @book.status == '1' %>
@@ -89,6 +89,7 @@
       </tbody>
     </table>
 <% end %>
-
-<%= link_to 'Edit', edit_book_path(@book) %>
+<%if admin?%>
+    <%= link_to 'Edit', edit_book_path(@book) %>
+<%end%>
 <%= link_to 'Back', books_path %>
