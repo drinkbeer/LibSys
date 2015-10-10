@@ -106,7 +106,19 @@ class BooksController < ApplicationController
     # SAVE TO DATABASE
     @book.save
     @history.save
-    redirect_to :back, notice: 'Book is successfully returned.'
+    
+    # Send emails to receivers
+    rec = @book.receivers.split(';')
+    rec.each do |r, index| 
+      @post = Post.new(index)
+      user = User.find(r)
+      PostMailer.post_email(user, @post).deliver_now
+    end
+    
+    @book.receivers = ''
+    @book.save
+    
+    redirect_to :back, notice: 'Book is successfully returned. Emails have been sent to receivers.'
   end
 
   # Check out the Book
@@ -151,6 +163,29 @@ class BooksController < ApplicationController
     else
       redirect_to :back, notice: 'Can`t find this user'
     end
+  end
+  
+  # Add a receiver for book
+  def add_receivers
+    puts "int aadd_receivers"
+    @book = Book.find(params[:id])
+    @user = current_user
+    
+    rec = @book.receivers
+    if !rec or rec == ''
+      rec = @user.id.to_s
+    else
+      rec += ";"
+      rec += @user.id.to_s
+    end
+    
+    @book.receivers = rec;
+    puts rec
+    
+    # SAVE TO DATABASE
+    @book.save
+    puts "add receiver success !"
+    redirect_to :back, notice: 'Successfully add you to receiver list.'
   end
 
   private

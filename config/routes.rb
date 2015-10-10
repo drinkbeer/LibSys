@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :posts
   resources :suggest_books
   get 'users/regist'
   resources :users
@@ -14,9 +15,10 @@ Rails.application.routes.draw do
   
   resources :books
   get   '/books/:id(.:format)/checkout' => 'books#checkout'
-  get   '/books/:id(.:format)/return' => 'books#return'
+  get   '/books/:id(.:format)/return'   => 'books#return'
   get   'books/search/:search'          => 'books#search'
   get   'searchu'  => 'books#searchu'
+  get   'receiver'  =>  'books#add_receivers'
 
   resources :histories
   get   '/books/show'          => 'books#show'

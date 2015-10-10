@@ -44,6 +44,14 @@ The Library System basicly has six pages.
 5. Clicking any **book title**, administrator can view the detail of the book. Administrator can check out books on behalf of members. If the book is still in library, then there will be a **"Check Out for member"** button. Typing the email of the member, clicking on the, the book will be checked out immediately. If not, there will display **"Unavailable"** with the user email of who has borrowed the book. If the member keeps that book now, there will display **"Return Book"**.
 6. Administrators can view all borrow book histories at **"All History"**. And clicking on any book title or user email, administrator can view all the history of a certain book or a certain member.
 
+###Mailer:
+Members can add himself to the books' receivers list if the book is unavailable. If the book is returned, he will receive a email.
+1. In ***"MyBooks"***, members can see ***Send Notification*** button. You can add yourself to receivers list.
+2. In the accound of whom borrowed the book, you can return your book. And at the same time server will send an email to the receivers. And the receivers' list will be set empty.
+
+###Suggest a book:
+
+
 ##Deployment:
 
 	Ruby Version: 	2.0.0
