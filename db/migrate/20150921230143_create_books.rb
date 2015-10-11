@@ -6,7 +6,7 @@ class CreateBooks < ActiveRecord::Migration
       t.string :author
       t.string :description
       t.string :status
-
+      t.string :receivers
       t.timestamps null: false
     end
   end
