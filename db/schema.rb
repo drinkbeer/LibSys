@@ -13,33 +13,14 @@
 
 ActiveRecord::Schema.define(version: 20151010014319) do
 
-  create_table "_histories_old_20150922", force: :cascade do |t|
-    t.string   "userid"
-    t.string   "bookid"
-    t.string   "checkouttime"
-    t.string   "returntime"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  create_table "_users_old_20150922", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password"
-    t.integer  "permission"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "books", force: :cascade do |t|
     t.string   "isbn"
     t.string   "title"
     t.string   "author"
     t.string   "description"
     t.string   "status"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "receivers",   limit: 100
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "histories", force: :cascade do |t|
@@ -47,8 +28,8 @@ ActiveRecord::Schema.define(version: 20151010014319) do
     t.string   "bookid"
     t.string   "checkouttime"
     t.string   "returntime"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -74,8 +55,8 @@ ActiveRecord::Schema.define(version: 20151010014319) do
     t.string   "email"
     t.string   "password"
     t.integer  "permission"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

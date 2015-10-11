@@ -50,13 +50,11 @@ Members can add himself to the books' receivers list if the book is unavailable.
 2. In the accound of whom borrowed the book, you can return your book. And at the same time server will send an email to the receivers. And the receivers' list will be set empty.
 
 ###Suggest a book:
-Members can suggest a book, and admin(perAdmin) can make suggested book availble
-1. In ***"Suggest Book"***, members can fill in the imformation of the book and push ***suggest book*** button. You can add this book to suggested book list.
-2. In ***"Suggested Book"*** admin and perAdmin can deal with the suggested book make it available or destory it
+
 
 ##Deployment:
 
-	Ruby Version: 	2.1.5
+	Ruby Version: 	2.0.0
 	Rails Version: 	4.2.4 (latest)
 	SQL: 			PostgreSQL
 	UI theme: 		http://getbootstrap.com/examples/theme/
