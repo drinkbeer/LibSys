@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20151010014319) do
     t.string   "author"
     t.string   "description"
     t.string   "status"
+    t.string   "receivers"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

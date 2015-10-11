@@ -108,6 +108,7 @@ class BooksController < ApplicationController
     @history.save
     
     # Send emails to receivers
+    if @book.receivers!=nil 
     rec = @book.receivers.split(';')
     rec.each do |r, index| 
       @post = Post.new(index)
@@ -117,7 +118,7 @@ class BooksController < ApplicationController
     
     @book.receivers = ''
     @book.save
-    
+    end
     redirect_to :back, notice: 'Book is successfully returned. Emails have been sent to receivers.'
   end
 
