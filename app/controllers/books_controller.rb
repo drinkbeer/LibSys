@@ -108,11 +108,13 @@ class BooksController < ApplicationController
     @history.save
     
     # Send emails to receivers
-    rec = @book.receivers.split(';')
-    rec.each do |r, index| 
-      @post = Post.new(index)
-      user = User.find(r)
-      PostMailer.post_email(user, @post).deliver_now
+    if rec
+      rec = @book.receivers.split(';')
+      rec.each do |r, index| 
+        @post = Post.new(index)
+        user = User.find(r)
+        PostMailer.post_email(user, @post).deliver_now
+      end
     end
     
     @book.receivers = ''
