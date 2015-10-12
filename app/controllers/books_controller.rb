@@ -35,7 +35,6 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    puts "create!!!!"
     @book = Book.new(book_params)
     @book.status='1'
     respond_to do |format|
@@ -75,11 +74,12 @@ class BooksController < ApplicationController
     @histories.each do |history|
       if (history.returntime == '-1')
         @ture=1
+        flash[:notice] = "The Book is still checked out"
         redirect_to books_url notice: 'The Book is still checked out'
       end
     end
-
-    if (@ture == 0&&current_user.permission<2)
+    if (@ture == 0)
+    if (current_user.permission<2)
       @histories.each do |history|
         history.destroy
       end
@@ -91,6 +91,7 @@ class BooksController < ApplicationController
     else
       redirect_to books_url notice: 'Only admin and preadmin can delete the book'
     end
+      end
   end
 
   # Return the Book
